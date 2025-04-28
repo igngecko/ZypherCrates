@@ -1,1 +1,39 @@
-test
+# Configuration for ZypherCrates
+
+# Title of the main crates GUI
+gui:
+  # You can use the plugin name here if desired: title: "&1&lZypher Crates"
+  title: "&1&lVirtual Crates" # Keeping original title for now
+  # Size must be a multiple of 9 (e.g., 9, 18, 27, 36, 45, 54)
+  size: 27
+  # Filler item settings (optional)
+  filler:
+    enabled: true
+    material: BLACK_STAINED_GLASS_PANE
+    name: " " # Single space for blank name
+    lore: [] # Empty list for no lore
+
+# Settings for crate opening animations (Future feature - placeholder for now)
+# animations:
+#   enabled: false
+#   type: SPIN # Example types: SPIN, ROULETTE, CSGO, NONE
+
+# Whether to broadcast rewards globally when a player opens a crate
+broadcast-rewards:
+  enabled: true
+  # Minimum rarity required to broadcast (defined in crates.yml).
+  # Set to empty "" or remove line to broadcast ALL rewards.
+  # This currently only checks if a reward HAS a rarity string when this is set.
+  # For level-based checks (e.g., broadcast Rare and above), more complex logic or
+  # defining rarity order in config would be needed.
+  min-rarity-to-broadcast: "Rare"
+
+# How often player data should be saved automatically (in minutes).
+# Set to 0 or negative value to disable auto-save.
+auto-save-interval: 15
+
+# Future options:
+# sound-effects:
+#   open-success: ENTITY_PLAYER_LEVELUP
+#   open-fail: ENTITY_VILLAGER_NO
+# money-format: "%.2f" # Format for displaying money amounts (e.g., in messages)
