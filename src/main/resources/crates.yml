@@ -1,0 +1,192 @@
+# Define your virtual crate types here for ZypherCrates.
+# Each top-level key is the internal name (ID) of the crate.
+# This ID is used in commands (/zc give <player> <crate_id>) and permissions (zyphercrates.open.<crate_id>).
+# Crate IDs should be simple, lowercase, alphanumeric, no spaces (use underscores or hyphens if needed).
+
+# Example Vote Crate
+vote:
+  # Display settings for the /crates GUI
+  gui:
+    slot: 10 # Inventory slot (0-53). Ensure it's within GUI size from config.yml.
+    item:
+      material: TRIPWIRE_HOOK # Material of the item shown in the GUI
+      name: "&a&lVote Crate" # Display name in the GUI
+      lore: # Lore lines shown in the GUI
+        - "&7Click to open!"
+        - ""
+        # Placeholder shows player's keys for THIS crate ID ('vote')
+        - "&eKeys: &f%zc_keys_vote%" # <<< CHANGED PLACEHOLDER PREFIX
+        - "&7Rewards include common items and commands."
+      enchanted: false # true/false: Should item have enchantment glow?
+      # Optional: custom-model-data: 12345 (requires 1.14+)
+  # List of possible rewards
+  rewards:
+    # Each key under 'rewards' is just an identifier for this specific reward definition (can be anything unique within this crate)
+    common_iron:
+      type: ITEM # ITEM, COMMAND, MONEY, PERMISSION
+      # Chance can be percentage (total 100%) or weight (any numbers, higher means more likely)
+      # Plugin automatically detects if total > 100 and uses weights, otherwise percentages.
+      chance: 40.0
+      # display_name: Optional name shown in chat/broadcast (defaults to item name/command/etc if missing)
+      display_name: "&7Iron Ingots"
+      # item section needed only for type: ITEM
+      item:
+        material: IRON_INGOT
+        amount: 16
+        # Optional item meta for the reward item itself:
+        # name: "&fSome Iron"
+        # lore: ["&7From voting!"]
+        # enchants:
+        #   - "UNBREAKING:1" # List format
+        # enchants: # Map format (alternative)
+        #   unbreaking: 1
+      # Optional Rarity for broadcast filtering (see config.yml 'broadcast-rewards')
+      rarity: "Common"
+    common_food:
+      type: ITEM
+      chance: 30.0
+      display_name: "&6Cooked Beef"
+      item:
+        material: COOKED_BEEF
+        amount: 32
+        name: "&cTasty Steak"
+        lore:
+          - "&7A delicious piece of meat."
+      rarity: "Common"
+    heal_command:
+      type: COMMAND
+      chance: 20.0
+      display_name: "&cHealing"
+      # commands section needed only for type: COMMAND
+      # Commands are run by the CONSOLE. Use %player% for player name, %uuid% for player UUID.
+      commands:
+        - "heal %player%"
+        - "feed %player%"
+      rarity: "Common"
+    small_money:
+      type: MONEY # Requires Vault + Economy plugin
+      chance: 10.0
+      display_name: "&a$50"
+      # amount needed only for type: MONEY
+      amount: 50.0
+      rarity: "Common"
+
+# Example Rare Crate
+rare:
+  gui:
+    slot: 13
+    item:
+      material: DIAMOND
+      name: "&b&lRare Crate"
+      lore:
+        - "&7Click to open!"
+        - ""
+        - "&eKeys: &f%zc_keys_rare%" # <<< CHANGED PLACEHOLDER PREFIX
+        - "&7Contains valuable items and perks!"
+      enchanted: true
+  rewards:
+    diamonds:
+      type: ITEM
+      chance: 35.0 # Total chance here is 100, uses percentages
+      display_name: "&bDiamonds"
+      item:
+        material: DIAMOND
+        amount: 5
+      rarity: "Rare"
+    rare_sword:
+      type: ITEM
+      chance: 25.0
+      display_name: "&eSharp Sword"
+      item:
+        material: DIAMOND_SWORD
+        name: "&eBlade of the Storm"
+        lore:
+          - "&7Sharp and pointy."
+        # Example enchants (using map format here)
+        enchants:
+          sharpness: 3
+          knockback: 1
+      rarity: "Rare"
+    fly_permission:
+      type: PERMISSION # Requires Vault + Permissions plugin
+      chance: 15.0
+      display_name: "&dTemporary Fly (1hr)"
+      # permission node needed only for type: PERMISSION
+      permission: "essentials.fly" # Adjust to your permission plugin/node
+      # Optional: Duration in seconds. 0 or missing = permanent (as handled by Vault/Perms plugin)
+      duration: 3600 # 1 hour
+      rarity: "Rare"
+    medium_money:
+      type: MONEY
+      chance: 25.0
+      display_name: "&a$500"
+      amount: 500.0
+      rarity: "Rare"
+
+# Example Legendary Crate (Using Weights)
+legendary:
+  gui:
+    slot: 16
+    item:
+      material: NETHER_STAR
+      name: "&6&lLegendary Crate"
+      lore:
+        - "&7Click to open!"
+        - ""
+        - "&eKeys: &f%zc_keys_legendary%" # <<< CHANGED PLACEHOLDER PREFIX
+        - "&7The ultimate rewards await!"
+      enchanted: true
+  rewards:
+    # Total weight: 20+15+10+30+25 = 100. Can be any total.
+    netherite_gear:
+      type: ITEM
+      chance: 20.0 # Weight
+      display_name: "&5Netherite Ingot"
+      item:
+        material: NETHERITE_INGOT
+        amount: 2
+      rarity: "Legendary"
+    god_pickaxe:
+      type: ITEM
+      chance: 15.0 # Weight
+      display_name: "&6God Pickaxe"
+      item:
+        material: NETHERITE_PICKAXE
+        name: "&6&lPickaxe of the Cosmos"
+        lore:
+          - "&dMines through reality itself."
+        enchants:
+          efficiency: 5
+          unbreaking: 3
+          fortune: 3
+          mending: 1
+      rarity: "Legendary"
+    rank_upgrade_cmd:
+      type: COMMAND
+      chance: 10.0 # Weight
+      display_name: "&eRank Upgrade (VIP 7d)"
+      # Example LuckPerms command (adjust to your setup)
+      commands:
+        - "lp user %player% parent addtemp vip 7d"
+        - "broadcast &e%player% &ahas won a temporary VIP rank from a legendary crate!"
+      rarity: "Legendary"
+    large_money:
+      type: MONEY
+      chance: 30.0 # Weight
+      display_name: "&a$10000"
+      amount: 10000.0
+      rarity: "Legendary"
+    spawner:
+      type: ITEM
+      chance: 25.0 # Weight
+      display_name: "&3Cow Spawner"
+      item:
+        # Giving spawners directly often requires NBT or specific plugins.
+        # Placeholder example using vanilla SPAWNER block item.
+        # A dedicated spawner plugin might handle this better via commands.
+        material: SPAWNER
+        name: "&fCow Spawner"
+        lore: ["&7Place down to spawn cows."]
+        # To set type requires NBT API or similar, which is complex for YAML.
+        # Consider giving a Command reward that uses a spawner plugin's command.
+      rarity: "Legendary"
