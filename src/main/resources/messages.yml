@@ -1,0 +1,43 @@
+# Messages for ZypherCrates
+# Use '&' for color codes.
+# Placeholders: %player%, %crate%, %amount%, %reward%, %permission%
+
+# Prefix prepended to most messages (unless message contains {no_prefix})
+prefix: "&8[&cZC&8] &r" # Changed prefix acronym
+
+# General Messages
+no-permission: "%prefix%&cYou do not have permission to do that."
+player-not-found: "%prefix%&cPlayer not found or has not played before."
+invalid-crate: "%prefix%&cInvalid crate type specified."
+invalid-amount: "%prefix%&cInvalid amount specified (must be a positive number, or 0 for /zc set)."
+reload-success: "%prefix%&aConfiguration reloaded successfully."
+not-enough-keys: "%prefix%&cYou don't have enough keys for the &e%crate% &ccrate."
+crate-opened: "%prefix%&aYou opened a &e%crate% &acrate!"
+keys-updated: "%prefix%&aYour key balance has been updated."
+
+# /crates command
+gui-opened: "{no_prefix}&aOpening crates menu..." # Example using no prefix
+
+# /zc admin commands
+keys-given: "%prefix%&aGave &e%amount% &f%crate% &akeys to &f%player%&a."
+keys-taken: "%prefix%&aTook &e%amount% &f%crate% &akeys from &f%player%&a."
+keys-set: "%prefix%&aSet &f%player%&a's &f%crate% &akeys to &e%amount%&a."
+# Updated usage message for /zc command
+zc-usage:
+  - "{no_prefix}&8&m--------------------------------------------------"
+  - "{no_prefix}&cZypherCrates Admin Commands (/zc):"
+  - "{no_prefix}&c /zc give <player> <crate> [amount]"
+  - "{no_prefix}&c /zc take <player> <crate> [amount]"
+  - "{no_prefix}&c /zc set <player> <crate> <amount>"
+  - "{no_prefix}&c /zc reload"
+  - "{no_prefix}&8&m--------------------------------------------------"
+
+
+# Reward Messages
+reward-received: "%prefix%&aYou received: %reward%&a!" # %reward% will have its own colors usually
+reward-broadcast: "%prefix%&6%player% &ehas received %reward% &efrom a &6%crate% &ecrate!" # Example broadcast format
+money-received: "%prefix%&aYou received &e$%amount%&a!"
+permission-received: "%prefix%&aYou gained the permission: &e%permission%"
+item-inventory-full: "%prefix%&cYour inventory was full! Some items were dropped on the ground."
+# Command rewards usually don't need a specific message unless configured reward display_name is generic
+# command-executed: "%prefix%&aA special command reward was executed!" # Can uncomment if needed
