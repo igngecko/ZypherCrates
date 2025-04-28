@@ -1,0 +1,4 @@
+# Player data for ZypherCrates
+# Stores virtual key balances for each player.
+# Format: player_uuid: {crate_id: amount, crate_id: amount, ...}
+# This file is managed by the plugin, manual edits are not recommended.
