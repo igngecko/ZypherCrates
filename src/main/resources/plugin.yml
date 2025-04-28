@@ -1,0 +1,75 @@
+# Plugin definition for ZypherCrates
+name: ZypherCrates # Changed name
+version: ${project.version} # Uses version from pom.xml
+# Updated main class path
+main: com.igngecko.zyphercrates.ZypherCrates
+api-version: 1.17 # Minimum server version required (e.g., 1.17, 1.16, 1.13)
+authors: [ignGecko] # Your author name
+description: ${project.description} # Uses description from pom.xml
+# Optional: Add website, prefix for logging
+# website: yourwebsite.com
+# prefix: ZypherCrates
+# Define dependencies
+depend: [Vault] # Required dependency
+# softdepend: [PlaceholderAPI] # Optional dependency if you add PAPI support
+
+commands:
+  # Player command to open the GUI
+  crates:
+    description: Opens the virtual crates GUI.
+    usage: /<command>
+    permission: zyphercrates.use # Changed permission node base
+    aliases: [crate, keys] # Optional aliases
+  # Admin command
+  zc: # Changed main admin command name/alias
+    description: Admin commands for ZypherCrates.
+    usage: /<command> <give|take|set|reload> [args]
+    # Removed old aliases, 'zc' is the primary now. Add others if desired.
+    aliases: [zyphercrates, zcrates] # Changed aliases
+    permission: zyphercrates.admin # Changed permission node base
+
+permissions:
+  # Root permission node
+  zyphercrates.*: # Changed permission node base
+    description: Gives access to all ZypherCrates features.
+    children:
+      zyphercrates.use: true
+      zyphercrates.admin: true
+      zyphercrates.open.*: true
+  # Permission to use the /crates command
+  zyphercrates.use: # Changed permission node base
+    description: Allows opening the crates GUI via /crates.
+    default: true # Grant to all players by default
+  # Permission for base /zc admin command
+  zyphercrates.admin: # Changed permission node base
+    description: Allows use of the /zc admin command and its subcommands.
+    default: op # Grant to server operators by default
+    # Optionally add child permissions for finer control
+    # children:
+    #   zyphercrates.admin.give: true
+    #   zyphercrates.admin.take: true
+    #   zyphercrates.admin.set: true
+    #   zyphercrates.admin.reload: true
+  # zyphercrates.admin.give:
+  #   description: Allows use of /zc give.
+  #   default: op
+  # zyphercrates.admin.take:
+  #   description: Allows use of /zc take.
+  #   default: op
+  # zyphercrates.admin.set:
+  #   description: Allows use of /zc set.
+  #   default: op
+  # zyphercrates.admin.reload:
+  #   description: Allows use of /zc reload.
+  #   default: op
+
+  # Wildcard permission to open any crate type
+  zyphercrates.open.*: # Changed permission node base
+    description: Allows opening all crate types.
+    default: op # Grant to operators by default
+  # Individual crate opening permissions (checked dynamically in code)
+  # The format is zyphercrates.open.<cratename>
+  # Example (not needed here, just for illustration):
+  # zyphercrates.open.vote:
+  #   description: Allows opening the 'vote' crate.
+  #   default: true # Grant to all players by default
